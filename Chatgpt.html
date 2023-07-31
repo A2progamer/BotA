@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .chat-container {
+      max-width: 500px;
+      margin: 30px auto;
+      background-color: #f7f7f7;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      max-height: 400px;
+    }
+    .message {
+      padding: 10px;
+      border-radius: 10px;
+      margin: 5px;
+      max-width: 80%;
+    }
+    .user-message {
+      text-align: left;
+      background-color: 	#0000FF;
+      color: #FFFFFF;
+    }
+    .assistant-message {
+      background-color: #f0f0f0;
+    }
+    .message p {
+      margin: 0;
+    }
+    .input-box {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #f7f7f7;
+      border-top: 1px solid #ccc;
+    }
+    .input-box input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+    }
+    .input-box button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #003eff;
+      color: #fff;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+    .bot-info {
+      text-align: center;
+      color: #888;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container" id="chatBox">
+    <div class="message assistant-message">
+      <p>Bonjour! Comment puis-je vous aider?</p>
+    </div>
+  </div>
+  <div class="input-box">
+    <input type="text" id="userInput" placeholder="Entrez votre message...">
+    <button onclick="sendMessage()">Envoyer</button>
+  </div>
+  <div class="bot-info">
+    BotAi - 0.5 Beta (Actuellement en développement)
+  </div>
+
+  <script>
+    function sendMessage() {
+      const userInput = document.getElementById("userInput").value.trim();
+      if (userInput !== "") {
+        const chatBox = document.getElementById("chatBox");
+        const userMessageDiv = document.createElement("div");
+        userMessageDiv.classList.add("message", "user-message");
+        const userMessageParagraph = document.createElement("p");
+        userMessageParagraph.textContent = "Utilisateur: " + userInput;
+        userMessageDiv.appendChild(userMessageParagraph);
+        chatBox.appendChild(userMessageDiv);
+        document.getElementById("userInput").value = "";
+
+        // Ajouter une réponse de l'assistant en fonction des mots clés
+        const assistantResponse = getAssistantResponse(userInput);
+        if (assistantResponse) {
+          const assistantMessageDiv = document.createElement("div");
+          assistantMessageDiv.classList.add("message", "assistant-message");
+          const assistantMessageParagraph = document.createElement("p");
+          assistantMessageParagraph.textContent = "Assistant: " + assistantResponse;
+          assistantMessageDiv.appendChild(assistantMessageParagraph);
+          chatBox.appendChild(assistantMessageDiv);
+        }
+      }
+    }
+
+    // Fonction pour obtenir une réponse de l'assistant en fonction des mots clés
+    function getAssistantResponse(userInput) {
+      userInput = userInput.toLowerCase();
+      if (userInput.includes("bonjour")) {
+        return "Bonjour! Comment puis-je vous aider?";
+      } else if (userInput.includes("aide")) {
+        return "Bien sûr! Je suis là pour vous aider.";
+       } else if
+       (userInput.includes("de rien")) {
+        return "😅";
+      } else if
+       (userInput.includes("au-revoir")) {
+        return "Au-revoir, revenez quand vous voulez.";
+      } else if
+ (userInput.includes("au revoir")) {
+ return "Au-revoir, revenez quand vous voulez.";
+      } else if (userInput.includes("age")) {
+        return "Je suis une intelligence artificielle, je n\'ai pas d'âge.";
+
+      } else if (userInput.includes("merci")) {
+        return "De rien! N'hésitez pas si vous avez besoin d'aide supplémentaire.";
+      } else {
+        return "Désolé, je ne comprends pas. Pouvez-vous reformuler votre question?";
+      }
+    }
+  </script>
+</body>
+</html>
